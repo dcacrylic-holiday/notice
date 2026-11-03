@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <title>休假公告</title>
   <style>
     * {
@@ -33,7 +36,15 @@
 </head>
 <body>
   <div class="img-container">
-    <img src="notice.jpg" alt="休假公告">
+    <img id="noticeImg" src="notice.jpg" alt="休假公告">
   </div>
+
+  <script>
+    // 每次開啟時自動帶入毫秒時間戳記，強制手機略過快取
+    var img = document.getElementById('noticeImg');
+    if (img) {
+      img.src = 'notice.jpg?v=' + new Date().getTime();
+    }
+  </script>
 </body>
 </html>
