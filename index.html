@@ -4,6 +4,7 @@ HTML
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- 防快取設定，確保手機每次點擊都抓取最新圖 -->
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -26,22 +27,35 @@ HTML
       max-width: 600px;
       width: 100%;
     }
-    img {
+    img.notice-pic {
       width: 100%;
       height: auto;
       display: block;
       border-radius: 8px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     }
+    /* 隱形計數器設定：縮小到1像素、透明度0、沉在最底層，客人完全看不見 */
+    .secret-counter {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      pointer-events: none;
+      z-index: -100;
+    }
   </style>
 </head>
 <body>
   <div class="img-container">
-    <img id="noticeImg" src="notice.jpg" alt="休假公告">
+    <!-- 休假公告大圖 -->
+    <img id="noticeImg" class="notice-pic" src="notice.jpg" alt="休假公告">
   </div>
 
+  <!-- 隱形訪客計數追蹤器 -->
+  <img class="secret-counter" src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fdcacrylic-holiday.github.io%2Fnotice%2F&count_bg=%23c4a275&title_bg=%23555555&title=Views&edge_flat=true" alt="counter">
+
   <script>
-    // 每次開啟時自動帶入毫秒時間戳記，強制手機略過快取
+    // 每次開啟時自動帶入毫秒時間戳記，強制手機略過快取顯示最新圖
     var img = document.getElementById('noticeImg');
     if (img) {
       img.src = 'notice.jpg?v=' + new Date().getTime();
